@@ -1,0 +1,36 @@
+slug: app-migration-niosx-as-a-service-copy
+id: jye61opmtux2
+revision: -62135596800
+title: Infoblox - App Migration NIOS-X-as-a-Service - TEST
+description: "\U0001F9ED Introduction\n\nYou’re working with CloudOps and NetOps teams
+  to migrate a legacy app from the data center into AWS. In this hands-on lab, you’ll
+  simulate a real-world migration using Infoblox Universal DDI for IP automation and
+  NIOS-X-as-a-Service (SaaS) for authoritative DNS and DNS Traffic Control (DTC) to
+  enable smart, policy-driven traffic steering.\n\nYou’ll:\n- Start with a running
+  on-premises application.\n- Deploy a cloud copy in AWS using Terraform + Universal
+  DDI for automated IP assignment.\n- Use Infoblox DTC via NIOS-X-as-a-Service to
+  gradually shift users from on-prem to cloud.\n\nThis lab combines SaaS-delivered
+  DNS services, infrastructure automation, IPAM integration, and DNS-level traffic
+  control to modernize your application footprint with minimal disruption.\n\n\U0001F3AF
+  Lab Objectives\n- Deploy an AWS-based copy of an on-prem app using Terraform and
+  Infoblox Universal DDI\n- Leverage DTC via NIOS-X-as-a-Service to manage and shift
+  traffic across environments\n- Simulate a safe, controlled application migration
+  using DNS-based traffic steering"
+icon: https://play.instruqt.com/assets/tracks/e6jecxl5nvew/c31663d57dce11f7baad50af3f7dec77/assets/Infoblox-logo-for-email.png
+tags: []
+owner: infoblox
+developers:
+- iracic@infoblox.com
+instructors: []
+show_timer: true
+idle_timeout: 0
+timelimit: 14400
+lab_config:
+  extend_ttl: 0
+  sidebar_enabled: true
+  hideStopButton: false
+  feedback_recap_enabled: true
+  feedback_tab_enabled: false
+  override_challenge_layout: false
+  loadingMessages: true
+enhanced_loading: null
