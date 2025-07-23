@@ -1,7 +1,7 @@
-slug: app-migration-niosx-as-a-service-copy
+slug: app-migration-niosx-as-a-service-prep
 id: jye61opmtux2
-revision: -62135596800
-title: Infoblox - App Migration NIOS-X-as-a-Service - TEST
+revision: 1
+title: Infoblox - App Migration NIOS-X-as-a-Service - Pre-provisioned
 description: "\U0001F9ED Introduction\n\nYou’re working with CloudOps and NetOps teams
   to migrate a legacy app from the data center into AWS. In this hands-on lab, you’ll
   simulate a real-world migration using Infoblox Universal DDI for IP automation and

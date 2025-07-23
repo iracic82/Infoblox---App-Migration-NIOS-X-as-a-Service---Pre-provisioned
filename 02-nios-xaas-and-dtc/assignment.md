@@ -87,6 +87,50 @@ This step demonstrates the full-stack migration workflow, powered by Infoblox Un
 
 You’re not just shifting workloads — you’re evolving how apps are delivered, governed, and secured in the cloud era.
 
+
+## Login to your cloud account consoles
+===
+
+🔐 Access Instructions
+
+Using the credentials below, log in to the AWS  Web Consoles.
+
+---
+# AWS Credentials ☁️
+
+🔐 Logging In to the AWS Console.
+
+👉 First, open the “AWS Console” tab on the left-hand side of your Instruqt lab environment. This will launch the AWS login page in a new browser panel.
+
+![Screenshot 2025-07-12 at 11.23.29.png](https://play.instruqt.com/assets/tracks/atmmwsclkofd/86d80bec0e3af0161dbb62f6e26e2626/assets/Screenshot%202025-07-12%20at%2011.23.29.png)
+
+Then follow these steps:
+1.	Select “IAM Account”.
+On the login screen, choose IAM Account (not root).
+
+![Screenshot 2025-07-12 at 11.23.29.png](https://play.instruqt.com/assets/tracks/atmmwsclkofd/86d80bec0e3af0161dbb62f6e26e2626/assets/Screenshot%202025-07-12%20at%2011.23.29.png)
+
+2.	Enter the AWS Account ID, AWS IAM username, and password by copying and pasting the values from the section below.
+
+📝 Note: Avoid the root account login — this lab is configured for IAM users only.
+
+**AWS Account ID**
+```
+[[ Instruqt-Var key="INSTRUQT_AWS_ACCOUNT_INFOBLOX_DEMO_ACCOUNT_ID" hostname="shell" ]]
+```
+
+**AWS Username**
+```
+[[ Instruqt-Var key="INSTRUQT_AWS_ACCOUNT_INFOBLOX_DEMO_USERNAME" hostname="shell" ]]
+```
+
+**AWS Password**
+```
+[[ Instruqt-Var key="INSTRUQT_AWS_ACCOUNT_INFOBLOX_DEMO_PASSWORD" hostname="shell" ]]
+```
+---
+
+
 🔹 Step 1: Configure NIOS-XaaS for Authoritative DNS
 ==
 
@@ -96,95 +140,8 @@ Automate the full setup of NIOS-X-as-a-Service as your authoritative DNS and sec
 
 You’re not clicking through GUIs — you’re treating infrastructure like code and DNS like a cloud-native service.
 
-🛠 Actions
-
-1️⃣ Launch and Validate NIOS-XaaS Instance Health
-
-Run the health-check script to validate that your NIOS-XaaS instance is provisioned and operational:
-
-```run
-cd  /root/infoblox-lab/app-migration-lab/terraform/scripts/
-python3 infoblox_vpn_configure.py
-```
-
-![Screenshot 2025-07-22 at 11.08.24.png](https://play.instruqt.com/assets/tracks/prsxwy2uwmxg/8a3bfd79d66e27194e84213a89d26a41/assets/Screenshot%202025-07-22%20at%2011.08.24.png)
-
-
 > [!IMPORTANT]
-> ⚠️ Important Before Proceeding
-
-Before running Step 2, wait ~5 minutes for Service IPs for the Infoblox PoP to become available.
-
-You can confirm this in the Infoblox Portal UI under:
-Configure → Service Deployment → As-A-Service → Cloud → AWS → [Region] → SITE
-
-![Screenshot 2025-07-22 at 11.24.37.png](https://play.instruqt.com/assets/tracks/prsxwy2uwmxg/e2384910ce5ad0ff6d550f7e2a845491/assets/Screenshot%202025-07-22%20at%2011.24.37.png)
-
-
-Look for the Cloud Service IP, when those show up please proceed with the Step2.
-
-
-2️⃣ Discover Required Cloud Service Details
-
-```run
-cd  /root/infoblox-lab/app-migration-lab/terraform/scripts/
-python3 get_cnames.py
-```
-
-![Screenshot 2025-07-22 at 11.09.22.png](https://play.instruqt.com/assets/tracks/prsxwy2uwmxg/cd08df0874f76aa3df4beeb8ab793b23/assets/Screenshot%202025-07-22%20at%2011.09.22.png)
-
-📄 Fetches and saves Servcie IPs  (e.g., used later for VPN or DNS assignment).
-
-3️⃣ Create the Cloud VPN to Infoblox PoP
-
-```run
-cd  /root/infoblox-lab/app-migration-lab/terraform/scripts/
-python3 create_aws_vpn.py
-```
-
-![Screenshot 2025-07-22 at 11.09.31.png](https://play.instruqt.com/assets/tracks/prsxwy2uwmxg/63a69133f4fe9b7a28c70765a6324f08/assets/Screenshot%202025-07-22%20at%2011.09.31.png)
-
-🌍 Automatically creates two VPN tunnels to the Infoblox SaaS PoP using CGW+VGW configuration:
-- Creates CGWs (Customer Gateways)
-- Creates VPN Connections for both tunnels
-
-
-4️⃣ Extract Tunnel IPs
-
-```run
-cd  /root/infoblox-lab/app-migration-lab/terraform/scripts/
-python3 extract_tunnels.py
-```
-
-
-![Screenshot 2025-07-22 at 11.09.40.png](https://play.instruqt.com/assets/tracks/prsxwy2uwmxg/8d14a8d8e3b464b05d4d0708b70a9c5c/assets/Screenshot%202025-07-22%20at%2011.09.40.png)
-
-📥 Saves all IPs (Tunnel 1 & 2 per VPN) for later configuration with Infoblox UDDI or routing.
-
-
-5️⃣ Update UDDI with the Tunnel IP
-
-```run
-cd  /root/infoblox-lab/app-migration-lab/terraform/scripts/
-python3 extract_tunnels.py
-```
-![Screenshot 2025-07-22 at 11.09.48.png](https://play.instruqt.com/assets/tracks/prsxwy2uwmxg/e2b972eb690af7fdb6da14cac7ee6f15/assets/Screenshot%202025-07-22%20at%2011.09.48.png)
-
-
-🚀 Updates the UDDI config to point to the correct Tunnel IPs
-
-
-6️⃣ Enable Route Propagation in VPC
-
-```run
-cd  /root/infoblox-lab/app-migration-lab/terraform/scripts/
-python3 enable_propagation_vpc.py
-```
-
-![Screenshot 2025-07-22 at 11.09.54.png](https://play.instruqt.com/assets/tracks/prsxwy2uwmxg/1276598291149487b0d392c58d03b571/assets/Screenshot%202025-07-22%20at%2011.09.54.png)
-
-
-📡 Ensures AWS route tables are updated with the VGW for traffic routing — essential for DNS and security inspection to flow via Infoblox.
+> The NIOS-X-as-a-Service has been already preprovisioned for your lab.
 
 
 ✅ What You Now Have

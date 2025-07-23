@@ -11,13 +11,18 @@ echo "This is the setup script"
 set-workdir /root/infoblox-lab
 
 # Run Python scripts
-cd /root/infoblox-lab/app-migration-lab/terraform/scripts
-sleep 480
-python3 deploy_aws_discovery.py
-sleep 360
-python3 deploy_ipam.py
-sleep 30 
-python3 deploy_api_key.py
+cd  /root/infoblox-lab/app-migration-lab/terraform/scripts/
+python3 infoblox_vpn_configure.py
+sleep 540
+python3 get_cnames.py
+sleep 20
+python3 create_aws_vpn.py
+sleep 20
+python3 extract_tunnels.py
+sleep 20
+python3 update_uddi_tunnel.py
+sleep 20
+python3 enable_propagation_vpc.py
 
 source /root/.bashrc
 
