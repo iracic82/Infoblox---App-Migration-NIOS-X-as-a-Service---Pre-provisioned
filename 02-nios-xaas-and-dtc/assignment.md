@@ -503,6 +503,12 @@ cd $HOME\Downloads
 .\test.ps1
 ```
 
+If you encounter a policy or permission error, use the above command to bypass execution restrictions temporarily.
+
+```run
+powershell -ExecutionPolicy Bypass -File .\test.ps1
+```
+
 This will give you a summary of how many DNS responses point to each backend IP.
 Example output:
 
