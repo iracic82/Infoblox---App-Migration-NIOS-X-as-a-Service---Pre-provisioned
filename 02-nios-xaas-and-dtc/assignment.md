@@ -490,10 +490,17 @@ http://app.infolab.com:5080
 > [!IMPORTANT]
 > NOTE:Go to Dowloads folder.
 
+
+```run
+cd $HOME\Downloads
+```
+
+![Screenshot 2025-07-24 at 20.58.38.png](https://play.instruqt.com/assets/tracks/jye61opmtux2/d99ba42f908ed24064d4939be60f80cb/assets/Screenshot%202025-07-24%20at%2020.58.38.png)
+
 - Run the following script to simulate 50 DNS queries:
 
-```
-./test.ps1
+```run
+.\test.ps1
 ```
 
 This will give you a summary of how many DNS responses point to each backend IP.
@@ -528,12 +535,12 @@ Now that we validated all traffic is hitting the on-prem app, it’s time to upd
 
 1. Rerun the script( be in the same folder **Dowloads** in the powershell cmd and always flush dns caching values ):
 
-```
+```run
 ipconfig /flushdns
 ```
 
-```
-./test.ps1
+```run
+.\test.ps1
 ```
 
 2.	You should now see a roughly even distribution between both IPs:
@@ -554,12 +561,12 @@ Actions:
 - Srv2 (AWS): 100
 3.	Rerun the script after flushing the dns cash:
 
-```
+```run
 ipconfig /flushdns
 ```
 
-```
-./test.ps1
+```run
+.\test.ps1
 ```
 
 You should now see:
