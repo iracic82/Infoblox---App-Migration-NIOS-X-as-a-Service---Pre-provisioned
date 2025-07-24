@@ -109,7 +109,6 @@ echo "✅ Guacamole user-mapping.xml created for ${DC1_IP}"
 cd /root/infoblox-lab/app-migration-lab/terraform/scripts
 python3 setup_dns.py
 sleep 10
-#python3 create_dns_gm.py
 python3 create_sandbox.py
 sleep 360
 python3 create_user.py
