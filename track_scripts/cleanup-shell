@@ -18,13 +18,19 @@ python3 cleanup_dns_records.py || echo "⚠️ cleanup_dns_records.py failed, co
 
 sleep 10
 
-# === Step 2: Delete sandbox ===
+# === Step 2: Clean up NIOSXaaS ===
+echo "🧽 Running cleanup_dns_records.py..."
+python3 delete_niosxaas.py || echo "⚠️ delete_niosxaas.py failed, continuing..."
+
+sleep 20
+
+# === Step 3: Delete sandbox ===
 echo "🗑️ Running delete_sandbox.py..."
 python3 delete_sandbox.py || echo "⚠️ delete_sandbox.py failed, continuing..."
 
 sleep 10
 
-# === Step 3: Delete user (or just clean up file if DELETE not supported) ===
+# === Step 4: Delete user (or just clean up file if DELETE not supported) ===
 echo "👤 Running delete_user.py..."
 python3 delete_user.py || echo "⚠️ delete_user.py failed or not supported."
 
