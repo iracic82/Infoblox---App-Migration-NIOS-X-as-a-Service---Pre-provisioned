@@ -1,29 +1,51 @@
 #!/bin/bash
+
 #
-# This script runs when the platform setup the challenge.
-#
-# The platform determines if the script was successful using the exit code of this
-# script. If the exit code is not 0, the script fails. 
+# Instruqt Setup Script – App Migration Lab (VPN + UDDI)
 #
 
-echo "This is the setup script"
+echo "🚀 Starting setup script for App Migration Lab (VPN + UDDI)..."
+set -euxo pipefail
 
 set-workdir /root/infoblox-lab
 
-# Run Python scripts
-cd  /root/infoblox-lab/app-migration-lab/terraform/scripts/
+# Navigate to scripts folder
+cd /root/infoblox-lab/app-migration-lab/terraform/scripts || {
+    echo "❌ Could not change to script directory."
+    exit 1
+}
+
+# === Phase 1: Initial VPN Configuration ===
+echo "🔧 Running VPN configuration script..."
 python3 infoblox_vpn_configure.py
-sleep 540
+sleep 540  # wait for CSP/VPC side to sync
+
+# === Phase 2: CNAME Prep ===
+echo "🔍 Fetching CNAME entries..."
 python3 get_cnames.py
 sleep 20
+
+# === Phase 3: Create VPN Connection ===
+echo "📡 Creating AWS VPN connection..."
 python3 create_aws_vpn.py
 sleep 20
+
+# === Phase 4: Extract Tunnel Info ===
+echo "🧠 Extracting tunnel data..."
 python3 extract_tunnels.py
 sleep 20
+
+# === Phase 5: Update UDDI with tunnel info ===
+echo "🔁 Updating UDDI tunnel mapping..."
 python3 update_uddi_tunnel.py
 sleep 20
+
+# === Phase 6: Enable route propagation on AWS side ===
+echo "📍 Enabling VPC route propagation..."
 python3 enable_propagation_vpc.py
 
-source /root/.bashrc
+# Optional: reload environment variables
+source /root/.bashrc || true
 
+echo "✅ VPN + UDDI setup complete."
 exit 0

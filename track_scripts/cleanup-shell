@@ -1,21 +1,34 @@
 #!/bin/sh
+
 #
-# This script runs when the platform setup the challenge.
-#
-# The platform determines if the script was successful using the exit code of this
-# script. If the exit code is not 0, the script fails. 
+# Instruqt Cleanup Script – App Migration Lab
 #
 
-echo "This is the cleanup script"
+echo "🧹 Starting cleanup for App Migration Lab..."
 
-# Run Python scripts
-cd /root/infoblox-lab/app-migration-lab/terraform/scripts
-python3 cleanup_dns_records.py
-sleep 10
-python3 delete_sandbox.py
-sleep 10
-python3 delete_user.py
+# Navigate to script directory
+cd /root/infoblox-lab/app-migration-lab/terraform/scripts || {
+  echo "❌ Failed to change to cleanup script directory."
+  exit 0  # don't fail Instruqt due to missing folder
+}
+
+# === Step 1: Clean up DNS records ===
+echo "🧽 Running cleanup_dns_records.py..."
+python3 cleanup_dns_records.py || echo "⚠️ cleanup_dns_records.py failed, continuing..."
+
 sleep 10
 
+# === Step 2: Delete sandbox ===
+echo "🗑️ Running delete_sandbox.py..."
+python3 delete_sandbox.py || echo "⚠️ delete_sandbox.py failed, continuing..."
 
+sleep 10
+
+# === Step 3: Delete user (or just clean up file if DELETE not supported) ===
+echo "👤 Running delete_user.py..."
+python3 delete_user.py || echo "⚠️ delete_user.py failed or not supported."
+
+sleep 10
+
+echo "✅ Cleanup complete."
 exit 0
