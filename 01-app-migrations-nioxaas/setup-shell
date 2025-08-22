@@ -21,7 +21,7 @@ sleep 480
 
 # === Discovery Deployment ===
 echo "📦 Deploying AWS Discovery..."
-python3 deploy_aws_discovery.py
+python3 deploy_aws_discovery_final.py
 sleep 360
 
 # === IPAM Config ===
